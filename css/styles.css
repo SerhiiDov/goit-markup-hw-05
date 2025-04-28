@@ -627,13 +627,13 @@ footer .container {
   width: 100%;
   height: 100%;
   z-index: 999;
-  background: rgba(46, 47, 66, 0.4);
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  background-color: rgba(46, 47, 66, 0.4);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+  visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   opacity: 0;
   pointer-events: none;
+  
 }
 
 .modal-window-overlay.is-open {
@@ -642,27 +642,33 @@ footer .container {
 }
 
 .modal-window {
+  position: absolute;
   display: flex;
   align-content: center;
   flex-direction: column;
-  margin-top: 80px;
-  border-radius: 4px;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
   width: 408px;
-  height: 584px;
+  min-height: 584px;
+  padding: 72px 24px 24px 24px;
+  border-radius: 4px;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12),
     0 2px 1px 0 rgba(0, 0, 0, 0.2);
   background: #fcfcfc;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.modal-widow-close {
+.modal-widow-close-button {
   display: flex;
+  position: absolute;
   justify-content: center;
   align-items: center;
-  margin-left: 360px;
-  margin-top: 24px;
-  margin-bottom: 24px;
+  top: 24px;
+  right: 24px;
   width: 24px;
   height: 24px;
+  padding: 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   background-color: #e7e9fc;
@@ -675,15 +681,17 @@ footer .container {
 .icon-close {
   display: block;
   fill: black;
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.modal-widow-close:hover,
-.modal-widow-close:focus {
+.modal-widow-close-button:hover,
+.modal-widow-close-button:focus {
+  border: none;
   background-color: #404bbf;
 }
 
-.modal-widow-close:hover .icon-close,
-.modal-widow-close:focus .icon-close {
+.modal-widow-close-button:hover .icon-close,
+.modal-widow-close-button:focus .icon-close {
   fill: white;
 }
 
@@ -702,18 +710,12 @@ footer .container {
   color: #2e2f42;
 }
 
-.modal-input-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-left: 24px;
-  padding-right: 24px;
+.modal-label-wrapper {
+  margin-bottom: 8px;
 }
 
 .modal-label {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  margin-bottom: 4px;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 12px;
@@ -722,137 +724,100 @@ footer .container {
   color: #8e8f99;
 }
 
+.modal-input-wrapper {
+  position: relative;
+}
+
 .modal-input-field {
-  outline: none;
-  display: block;
+  outline: transparent;
+  background-color: transparent;
   width: 100%;
   height: 40px;
   padding-left: 38px;
   border: 1px solid rgba(46, 47, 66, 0.4);
   border-radius: 4px;
   font-size: 18px;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.input-wrapper {
-  position: relative;
-}
-
-.modal-input-field:focus-within,
-.modal-label-comment:focus-within {
+.modal-input-field:focus {
   border-color: #4d5ae5;
 }
 
-.input-wrapper:focus-within .input-icon {
+.modal-input-field:focus-within .input-icon {
   fill: #4d5ae5;
 }
 
-.modal-label-comment {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 117%;
-  letter-spacing: 0.04em;
-  color: #8e8f99;
+.input-icon {
+  position: absolute;
+  left: 16px;
+  transform: translateY(-50%);
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-label-comment-wrapper {
+  margin-bottom: 16px;
 }
 
 .modal-input-comment {
-  outline: none;
-  resize: none;
-  border: 1px solid rgba(46, 47, 66, 0.4);
-  border-radius: 4px;
+  width: 100%;
   height: 120px;
-  padding-left: 16px;
-  padding-top: 8px;
-}
-
-.modal-input-comment::placeholder {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
   font-size: 12px;
-  line-height: 117%;
+  line-height: 1.17;
   letter-spacing: 0.04em;
   color: rgba(46, 47, 66, 0.4);
-}
-
-.input-wrapper {
-  display: flex;
-  position: relative;
-  height: 40px;
-  align-items: center;
-}
-
-.input-icon {
-  display: block;
-  position: absolute;
-  left: 16px;
-  pointer-events: none;
-}
-
-.modal-checkbox {
-  margin-top: 16px;
-  padding-left: 24px;
-  margin-bottom: 24px;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  gap: 8px;
-  user-select: none;
-}
-
-.checkbox-hidden {
-  background-color: white;
-  outline: none;
-  display: none;
-}
-
-.checkbox-hidden:checked + .checkbox-icon {
-  border-radius: 2px;
-  border: 1px solid #404bbf;
-}
-
-.checkbox-hidden:checked + .checkbox-icon .icon-check {
-  fill: #404bbf;
-  display: block;
-}
-
-.checkbox-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
   border: 1px solid rgba(46, 47, 66, 0.4);
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 8px 16px;
+  outline: transparent;
+  resize: none;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.modal-checkbox-text {
-  margin: 0;
-  margin-left: 8px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
+.modal-input-comment:focus {
+  border-color: #4d5ae5;
+}
+
+.modal-checkbox-wrapper {
+  margin-bottom: 24px;
+}
+
+.modal-checkbox-label {
   font-size: 12px;
-  line-height: 117%;
+  line-height: 1.17;
   letter-spacing: 0.04em;
   color: #8e8f99;
 }
 
-.icon-check {
+.checkbox-icon {
   width: 16px;
   height: 16px;
-  display: none;
+  border: 1px solid rgba(46, 47, 66, 0.4);
+  border-radius: 2px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  fill: transparent;
+}
+
+.visually-hidden:checked + .checkbox-icon {
+  background-color: #404bbf;
+  border: none;
+  fill: #f4f4fd;
+}
+
+.modal-checkbox-label-link{
+  color: #4d5ae5;
 }
 
 .modal-button-send {
-  margin: 0 auto;
-  border-radius: 4px;
-  padding: 16px 32px;
-  width: 169px;
+  display: block;
+  min-width: 169px;
   height: 56px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
-  background: #4d5ae5;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-size: 16px;
@@ -860,4 +825,8 @@ footer .container {
   letter-spacing: 0.04em;
   text-align: center;
   color: #fff;
+  cursor: pointer;
+  background-color: #4d5ae5;
+  border: none;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
